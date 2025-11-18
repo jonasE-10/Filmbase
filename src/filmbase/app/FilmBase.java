@@ -4,9 +4,7 @@ import filmbase.data.Film;
 import filmbase.data.Genre;
 import filmbase.data.Playlist;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public class FilmBase {
     private List<Film> allFilms = new ArrayList<>();
@@ -17,8 +15,9 @@ public class FilmBase {
     public void start(){
         System.out.println("--- FilmBasen er startet ---");
         initFilms();
-        testPlaylist();
-        testFiltering();
+        //testPlaylist();
+        //testFiltering();
+        countGenres();
     }
     private void initFilms(){
         allFilms.add(new Film("The Godfather", 1972, Genre.Crime, Genre.Drama,Genre.Crime, Genre.Drama));
@@ -68,5 +67,35 @@ public class FilmBase {
                 System.out.println(film.getTitle() + " : " + film.getGenres());
             }
         }
+    }
+    private void countGenres(){
+        Set<Genre> allGenres = new HashSet<>();
+        Map<Genre, Collection<Film>> genreFilms = new HashMap<>();
+        for (Film film : allFilms){
+            allGenres.addAll(film.getGenres());
+        }
+        System.out.println("--- Udskriver alle Genres ---");
+        System.out.println(allGenres);
+        for (Film film : allFilms) {
+            for (Genre genre : allGenres){
+                if (!genreFilms.containsKey(genre)){
+                    Collection<Film> filmMedGenre = new ArrayList<>();
+                    filmMedGenre.add(film);
+                    genreFilms.put(genre,filmMedGenre);
+                } else {
+                    Collection<Film> filmMedGenre = genreFilms.get(genre);
+                    filmMedGenre.add(film);
+                }
+            }
+        }
+        for (Genre genre: genreFilms.keySet()){
+            System.out.println("--- Genre ---");
+            System.out.println("--- "+genre+" ---");
+            System.out.println("--- Film i Genre ---");
+            for (Film film : genreFilms.get(genre)){
+                System.out.println(film.getTitle());
+            }
+        }
+
     }
 }

@@ -7,7 +7,7 @@ public class Film {
     private int year;
     private Set<Genre> genres = new HashSet<>();
 
-    public Collection<Genre> getGenres() {
+    public Set<Genre> getGenres() {
         return genres;
     }
 
