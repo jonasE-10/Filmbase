@@ -17,13 +17,12 @@ public class FilmBase {
     public void start(){
         System.out.println("--- FilmBasen er startet ---");
         initFilms();
-        printList(allFilms);
         testPlaylist();
         testFiltering();
     }
     private void initFilms(){
-        allFilms.add(new Film("The Godfather", 1972, Genre.Crime, Genre.Drama));
-        allFilms.add(new Film("The Shawshank Redemption", 1994, Genre.Drama));
+        allFilms.add(new Film("The Godfather", 1972, Genre.Crime, Genre.Drama,Genre.Crime, Genre.Drama));
+        allFilms.add(new Film("The Shawshank Redemption", 1994, Genre.Drama,Genre.Crime, Genre.Drama));
         allFilms.add(new Film("Schindler's List", 1993, Genre.Biography,Genre.Drama));
         allFilms.add(new Film("Some Like It Hot", 1959, Genre.Comedy,Genre.Romance));
         allFilms.add(new Film("Ben Hur", 1959, Genre.Adventure,Genre.Drama));
@@ -38,6 +37,23 @@ public class FilmBase {
         for (Film film : films) {
             System.out.println(film.getTitle() + " : " + "(" + film.getYear() + ")" + " : " + film.getGenres());
         }
+        if (films.isEmpty()){
+            System.out.println("--- Listen er tom! ---");
+        }
+    }
+    private void testPlaylist(){
+        Playlist playlist = new Playlist();
+        System.out.println("--- Tilføjer til playlist ---");
+        for (int i = 0; i < allFilms.size(); i++) {
+            playlist.addFilm(allFilms.get(i));
+        }
+        System.out.println("--- Udskriver Playlist ---");
+        printList(playlist.listOfFilms());
+        while(playlist.hasNext()){
+            System.out.println("--- Afspiller næste film i playlist ---");
+            System.out.println(playlist.playAndRemove().getTitle());
+        }
+        printList(playlist.listOfFilms());
     }
     private void testFiltering() {
         Playlist playlist = new Playlist();
@@ -51,17 +67,6 @@ public class FilmBase {
             if (film.hasGenre(Genre.Romance)) {
                 System.out.println(film.getTitle() + " : " + film.getGenres());
             }
-        }
-    }
-    private void testPlaylist(){
-        Playlist playlist = new Playlist();
-        System.out.println("--- Tilføjer til playlist ---");
-        for (int i = 0; i < allFilms.size(); i++) {
-            playlist.addFilm(allFilms.get(i));
-        }
-        System.out.println("--- Udskriver Playlist ---");
-        while(playlist.hasNext()){
-            System.out.println(playlist.playAndRemove().getTitle());
         }
     }
 }

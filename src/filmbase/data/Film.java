@@ -1,21 +1,14 @@
 package filmbase.data;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public class Film {
     private String title;
     private int year;
-    private Collection<Genre> genres = new ArrayList<>();
+    private Set<Genre> genres = new HashSet<>();
 
     public Collection<Genre> getGenres() {
         return genres;
-    }
-
-    public void setGenre(Collection<Genre> genres) {
-        this.genres = genres;
     }
 
     public Film(String title, int year, Genre... genre) {
@@ -23,12 +16,7 @@ public class Film {
         this.year = year;
         this.genres.addAll(List.of(genre));
     }
-    public void addGenre(Genre genre) {
-        if(genres.contains(genre)) {
-            System.out.println("Filmen, indholder allerede "+genre.toString());
-        }
-        this.genres.add(genre);
-    }
+
     public boolean hasGenre(Genre genre) {
         if (genres.contains(genre)){
             return true;
