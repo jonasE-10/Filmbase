@@ -17,7 +17,7 @@ public class FilmBase {
         initFilms();
         //testPlaylist();
         //testFiltering();
-        countGenres();
+        //countGenres();
     }
     private void initFilms(){
         allFilms.add(new Film("The Godfather", 1972, Genre.Crime, Genre.Drama,Genre.Crime, Genre.Drama));
